@@ -17,21 +17,24 @@ def return_pessoas():
 
     return jsonify(response)
 
+
 @routes_bp.route("/create_pessoa", methods=["POST"])
 def create_pessoa():
     request_form = request.json
-    
+
     response = PessoaRepository.create_pessoa(request_form)
 
     return jsonify(response.toDict())
 
+
 @routes_bp.route("/update_pessoa/<id>", methods=["PUT"])
 def update_pessoa(id):
     request_form = request.json
-    
+
     response = PessoaRepository.update_pessoa(id, request_form)
 
     return jsonify(response.toDict())
+
 
 @routes_bp.route("/delete_pessoa/<id>", methods=["DELETE"])
 def delete_pessoa(id):

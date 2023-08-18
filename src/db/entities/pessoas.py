@@ -18,4 +18,4 @@ class Pessoas(Base):
         return f"Pessoas [id={self.id_pessoa}, nome={self.nome}]"
 
     def toDict(self):
-        return { c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs }
+        return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}

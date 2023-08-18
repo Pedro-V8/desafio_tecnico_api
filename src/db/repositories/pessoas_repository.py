@@ -44,6 +44,7 @@ class PessoaRepository:
                 return pessoa
         except Exception as error:
             raise error
+
     @classmethod
     def delete_pessoa(cls, id):
         try:
