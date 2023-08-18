@@ -14,6 +14,19 @@ class PessoaRepository:
             raise error
         
     @classmethod
+    def create_pessoa(cls, request):
+        try:
+            with DBConnectionHandler() as db_connection:
+                pessoa = PessoasEntity(**request)
+                db_connection.session.add(pessoa)
+                db_connection.session.commit()
+                db_connection.session.refresh(pessoa)
+                db_connection.session.close()
+                return pessoa
+        except Exception as error:
+            raise error
+        
+    @classmethod
     def update_pessoa(cls, id, request):
         try:
             

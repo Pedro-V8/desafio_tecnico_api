@@ -10,12 +10,20 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-@routes_bp.route("/pessoas", methods=["GET"])
+@routes_bp.route("/list_pessoas", methods=["GET"])
 def return_pessoas():
     pessoas = PessoaRepository.select_pessoas()
     response = [x.toDict() for x in pessoas]
 
     return jsonify(response)
+
+@routes_bp.route("/create_pessoa", methods=["POST"])
+def create_pessoa():
+    request_form = request.json
+    
+    response = PessoaRepository.create_pessoa(request_form)
+
+    return jsonify(response.toDict())
 
 @routes_bp.route("/update_pessoa/<id>", methods=["PUT"])
 def update_pessoa(id):
