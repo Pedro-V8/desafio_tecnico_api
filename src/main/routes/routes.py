@@ -32,3 +32,9 @@ def update_pessoa(id):
     response = PessoaRepository.update_pessoa(id, request_form)
 
     return jsonify(response.toDict())
+
+@routes_bp.route("/delete_pessoa/<id>", methods=["DELETE"])
+def delete_pessoa(id):
+    response = PessoaRepository.delete_pessoa(id)
+
+    return jsonify(response)
