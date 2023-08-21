@@ -5,16 +5,5 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"  # Mapeia a porta do contêiner para a porta do host
-    depends_on:
-      - mysql-db
+      - "5001:5001"
 
-  mysql-db:
-    image: mysql:8.0
-    ports:
-      - "30000:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: pedrovieira
-      MYSQL_DATABASE: database_desafio
-      MYSQL_USER: root
-      MYSQL_PASSWORD: pedrovieira

@@ -7,11 +7,11 @@ class DBConnectionHandler:
     def __init__(self) -> None:
         self.__connection_string = "{}://{}:{}@{}:{}/{}".format(
             "mysql+pymysql",
-            "root",
             "pedrovieira",
-            "localhost",
+            "cGVkcm92aWVp",
+            "jobs.visie.com.br",
             "3306",
-            "database_desafio",
+            "pedrovieira",
         )
 
         self.__engine = self.__create_database_engine()
