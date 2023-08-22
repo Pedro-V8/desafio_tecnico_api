@@ -1,17 +1,23 @@
+import os
+
 from sqlalchemy import create_engine
 
 from sqlalchemy.orm import sessionmaker
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class DBConnectionHandler:
     def __init__(self) -> None:
         self.__connection_string = "{}://{}:{}@{}:{}/{}".format(
-            "mysql+pymysql",
-            "pedrovieira",
-            "cGVkcm92aWVp",
-            "jobs.visie.com.br",
-            "3306",
-            "pedrovieira",
+            os.getenv("ENGINE"),
+            os.getenv("USER"),
+            os.getenv("PASS"),
+            os.getenv("HOST"),
+            os.getenv("PORT"),
+            os.getenv("DB"),
         )
 
         self.__engine = self.__create_database_engine()
