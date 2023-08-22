@@ -20,11 +20,12 @@ def return_pessoas():
 
 @routes_bp.route("/create_pessoa", methods=["POST"])
 def create_pessoa():
-    request_form = request.json
-
-    response = PessoaRepository.create_pessoa(request_form)
-
-    return jsonify(response.toDict())
+    try:
+        request_form = request.json
+        response = PessoaRepository.create_pessoa(request_form)
+        return jsonify(response.toDict())
+    except Exception as error:
+        return jsonify({"error": str(error)})
 
 
 @routes_bp.route("/update_pessoa/<id>", methods=["PUT"])

@@ -1,5 +1,6 @@
 from src.db.settings.connection import DBConnectionHandler
 from src.db.entities.pessoas import Pessoas as PessoasEntity
+from src.db.repositories.pessoas_validator import Validator
 
 
 class PessoaRepository:
@@ -16,6 +17,15 @@ class PessoaRepository:
     @classmethod
     def create_pessoa(cls, request):
         try:
+            cpf = request.get("cpf")
+            rg = request.get("rg")
+
+            if not Validator.validar_cpf(cpf):
+                raise ValueError("CPF inválido")
+
+            if not Validator.validar_rg(rg):
+                raise ValueError("RG inválido")
+            
             with DBConnectionHandler() as db_connection:
                 pessoa = PessoasEntity(**request)
                 db_connection.session.add(pessoa)
