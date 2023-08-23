@@ -1,12 +1,18 @@
-from src.db.settings.connection import DBConnectionHandler
-from src.db.entities.pessoas import Pessoas as PessoasEntity
-from src.db.repositories.pessoas_validator import Validator
+"""
+
+Arquivo contendo as definições das ações que ocorrem direto no bando de dados.
+
+"""
+from src.infra.db.settings.connection import DBConnectionHandler
+from src.infra.db.entities.pessoas import Pessoas as PessoasEntity
+from src.domain.execptions import ExceptionAPI
 
 
 class PessoaRepository:
     @classmethod
     def select_pessoas(cls):
         try:
+            # Select
             with DBConnectionHandler() as db_connection:
                 query = db_connection.session.query(PessoasEntity).all()
                 db_connection.session.close()
@@ -17,15 +23,17 @@ class PessoaRepository:
     @classmethod
     def create_pessoa(cls, request):
         try:
+            # Validando CPF e RG
             cpf = request.get("cpf")
             rg = request.get("rg")
 
-            if not Validator.validar_cpf(cpf):
+            if not ExceptionAPI.validate_cpf(cpf):
                 raise ValueError("CPF inválido")
 
-            if not Validator.validar_rg(rg):
+            if not ExceptionAPI.validate_rg(rg):
                 raise ValueError("RG inválido")
             
+            # Create
             with DBConnectionHandler() as db_connection:
                 pessoa = PessoasEntity(**request)
                 db_connection.session.add(pessoa)
@@ -39,6 +47,7 @@ class PessoaRepository:
     @classmethod
     def update_pessoa(cls, id, request):
         try:
+            # Update
             with DBConnectionHandler() as db_connection:
                 db_connection.session.query(PessoasEntity).filter(
                     PessoasEntity.id_pessoa == id
@@ -58,6 +67,7 @@ class PessoaRepository:
     @classmethod
     def delete_pessoa(cls, id):
         try:
+            # Delete
             with DBConnectionHandler() as db_connection:
                 db_connection.session.query(PessoasEntity).filter(
                     PessoasEntity.id_pessoa == id

@@ -1,3 +1,9 @@
+"""
+
+Arquivo contendo a Classe de Conexão com o Banco de Dados
+
+"""
+
 import os
 
 from sqlalchemy import create_engine
